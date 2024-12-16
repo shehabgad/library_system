@@ -8,7 +8,7 @@ A **Library System** built with Docker, providing user and book management, borr
 3. [Books Routes](#books-routes)
 4. [Borrow Routes](#borrow-routes)
 5. [Testing](#testing)
-
+6. [Schema Design](#schema-design)
 ---
 
 ## Setup Instructions
@@ -211,3 +211,6 @@ To run tests, follow these steps:
 - Ensure JWT is sent in the **Authorization Header** using the `Bearer Token` format for protected routes.
 
 ---
+
+## Schema Design
+![Schema Design](schema_design.png)
