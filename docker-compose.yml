@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Database service
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
+    networks:
+      - backend
+    ports:
+      - "${PG_PORT}:${PG_PORT}"
+
+  # Backend service
+  backend:
+    build:
+      context: .
+    environment:
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_HOST: db
+      PG_DB: ${PG_DB}
+      PG_PORT: ${PG_PORT}
+      BCRYPT_PASSWORD: ${BCRYPT_PASSWORD}
+      SALT_ROUNDS: ${SALT_ROUNDS}
+      PEPPER: ${PEPPER}
+      TOKEN_SECRET: ${TOKEN_SECRET}
+      PORT: ${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+    command: sh -c "npx db-migrate up && npm run start"
+    depends_on:
+      - db
+    networks:
+      - backend
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  postgres_data:
+
+
+networks:
+  backend:
+    driver: bridge
