@@ -19,15 +19,6 @@ A **Library System** built with Docker, providing user and book management, borr
    ```
    This will set up all containers, configure the database, and prepare the environment.
 
-2. To run the tests:
-   - Enter the backend container:
-     ```bash
-     docker exec -it <backend-container-name> /bin/bash
-     ```
-   - Execute the test command:
-     ```bash
-     npm run test
-     ```
 
 ---
 
@@ -44,6 +35,7 @@ A **Library System** built with Docker, providing user and book management, borr
   }
   ```
 - **Response**: Returns a JSON Web Token (JWT) for authorization.
+- Ensure JWT is sent in the **Authorization Header** using the `Bearer Token` format for protected routes.
 - **Example**:
   ![Signup](postman_images/users/1.png)
 
@@ -217,6 +209,5 @@ To run tests, follow these steps:
 
 ## Notes
 - Ensure JWT is sent in the **Authorization Header** using the `Bearer Token` format for protected routes.
-- CSV responses are generated for specific endpoints to facilitate data export and analysis.
 
 ---
